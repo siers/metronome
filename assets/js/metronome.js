@@ -3,6 +3,7 @@ var isPlaying = false;      // Are we currently playing?
 var startTime;              // The start time of the entire sequence.
 var currentTwelveletNote;        // What note is currently last scheduled?
 var tempo = 120.0;          // tempo (in beats per minute)
+var randOffset = 0.0;          // random offset
 var meter = 4;
 var masterVolume = 0.5;
 var accentVolume = 1;
@@ -31,8 +32,9 @@ function nextTwelvelet() {
   nextNoteTime += 0.08333 * secondsPerBeat;    // Add beat length to last beat time
   currentTwelveletNote++;    // Advance the beat number, wrap to zero
 
-  if (currentTwelveletNote == maxBeats()) {
+  if (currentTwelveletNote >= maxBeats()) {
     currentTwelveletNote = 0;
+    nextNoteTime += Math.random() * randOffset / 1000.0;
   }
 }
 
